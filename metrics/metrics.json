@@ -1,0 +1,44 @@
+[
+  {
+    "timestamp": "2026-02-16T17:05:15.809519",
+    "query_preview": "Hola, se me rompieron mis baquetas, soy baterista,...",
+    "metrics": {
+      "latency_ms": 1378,
+      "cost_usd": 0.000362,
+      "input_tokens": 28,
+      "output_tokens": 160,
+      "total_tokens": 188
+    },
+    "response_data": {
+      "answer": "Lo siento por tus baquetas rotas. Para música heavy, te recomiendo baquetas de madera dura como el maple o el hickory, con un diámetro y longitud adecuados para el poder y la velocidad que requiere este género. Las baquetas de la serie '5B' o '2B' de marcas como Vic Firth o Pro-Mark son muy populares entre bateristas de heavy metal.",
+      "confidence_score": 0.9,
+      "intent": "sales_advisory",
+      "recommended_actions": [
+        "show_catalog",
+        "check_stock"
+      ],
+      "reasoning": "El usuario es baterista de música heavy y necesita baquetas resistentes. Debo sugerir baquetas adecuadas para este estilo musical."
+    }
+  },
+  {
+    "timestamp": "2026-02-16T17:05:41.579828",
+    "query_preview": "Tienes de oak? algo asi era el material, muy resis...",
+    "metrics": {
+      "latency_ms": 945,
+      "cost_usd": 0.000383,
+      "input_tokens": 14,
+      "output_tokens": 181,
+      "total_tokens": 195
+    },
+    "response_data": {
+      "answer": "Sí, tenemos baquetas de roble (oak) que son conocidas por su durabilidad y resistencia. Las baquetas de roble son ideales para bateristas que tocan con mucha fuerza y necesitan un material que pueda soportar el impacto. Te recomiendo echar un vistazo a nuestras baquetas de roble de la marca 'Regal Tip' o 'Vic Firth', que son muy populares entre los bateristas de música heavy.",
+      "confidence_score": 0.92,
+      "intent": "sales_advisory",
+      "recommended_actions": [
+        "check_stock",
+        "show_catalog"
+      ],
+      "reasoning": "El usuario menciona 'oak', que es un tipo de madera, y busca baquetas resistentes. Debo verificar si tenemos baquetas de roble (oak) en stock."
+    }
+  }
+]
