@@ -25,16 +25,41 @@ def print_metrics(metrics: dict):
 
 
 def main():
-    print(Fore.GREEN + Style.BRIGHT + "🥁🎷🎸 Bienvenido a Groove Hub CLI 🥁🎷🎸")
-    # print(Fore.CYAN + "🎼🎵🎶🎙️🎚️🎛️🎤🎧🎷🪗🎸🎹🎺🎻🪕🥁🪘🪇🪈🪉")
-    print(Fore.CYAN + Style.BRIGHT + "🎵 Tienda de Instrumentos Musicales 🎵")
-    print(Fore.CYAN + "-" * 50)
+    # print(Fore.GREEN + Style.BRIGHT + "🥁🎷🎸 Bienvenido a Groove Hub CLI 🥁🎷🎸")
+    # # print(Fore.CYAN + "🎼🎵🎶🎙️🎚️🎛️🎤🎧🎷🪗🎸🎹🎺🎻🪕🥁🪘🪇🪈🪉")
+    # print(Fore.CYAN + Style.BRIGHT + "🎵 Tienda de Instrumentos Musicales 🎵")
+    # print(Fore.CYAN + "-" * 50)
+    # print(
+    #     Fore.BLUE
+    #     + "\n🤖 Groov: "
+    #     + Fore.WHITE
+    #     + "¡Hola, soy Groov 👋! Charlemos y sacate tus dudas."
+    # )
+
+    print("\033[H\033[J", end="")
+
     print(
-        Fore.BLUE
-        + "\n🤖 Groov: "
-        + Fore.WHITE
-        + "¡Hola, soy Groov 👋! Charlemos y sacate tus dudas."
+        Fore.MAGENTA
+        + Style.BRIGHT
+        + r"""
+   _____                           _   _       _     
+  / ____|                         | | | |     | |    
+ | |  __ _ __ ___   _____   _____ | |_| |_   _| |__  
+ | | |_ | '__/ _ \ / _ \ \ / / _ \|  _  | | | | '_ \ 
+ | |__| | | | (_) | (_) \ V /  __/| | | | |_| | |_) |
+  \_____|_|  \___/ \___/ \_/ \___||_| |_|\__,_|_.__/ 
+    """
+        + Style.RESET_ALL
     )
+    print(Style.DIM + "  Music Instrument Advisor v1.0\n")
+
+    print(
+        Fore.CYAN
+        + "🤖 Groov:"
+        + Fore.WHITE
+        + " ¡Hola! Soy tu experto musical. ¿En qué te ayudo hoy?"
+    )
+    print(Style.DIM + "   (Escribe 'salir' o 'exit' para terminar)\n")
 
     agent = MusicAgent()
     tracker = MetricsTracker()
@@ -42,7 +67,7 @@ def main():
     while True:
         try:
             # Pedir input al usuario
-            user_input = input(Fore.YELLOW + "Tú: " + Fore.RESET).strip()
+            user_input = input(Fore.GREEN + "➜ " + Fore.WHITE).strip()
 
             # Condición de salida
             if user_input.lower() in ["salir", "exit", "quit", "chau", "adios"]:
@@ -74,7 +99,7 @@ def main():
             cost = tracker.calculate_cost(input_tokens, output_tokens)
 
             # Mostrar la Respuesta al Usuario
-            print(Fore.BLUE + "\n🤖 Groov: " + Fore.WHITE + response.answer)
+            print(Fore.CYAN + "\n🤖 Groov: " + Fore.WHITE + response.answer)
             print(
                 Style.DIM
                 + f"\n👀 (Confianza: {response.confidence_score * 100:.0f}% | Intención: {response.intent.value})"
