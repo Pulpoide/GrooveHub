@@ -1,7 +1,7 @@
 import json
-from music_advisor.models import AdvisorResponse
-from music_advisor.services.llm import LLMService
-from music_advisor.agent.prompts import SYSTEM_PROMPT
+from groovehub.models import AdvisorResponse
+from groovehub.services.llm import LLMService
+from groovehub.agent.prompts.main_prompt import SYSTEM_PROMPT
 
 
 class MusicAgent:
