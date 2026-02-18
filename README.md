@@ -9,7 +9,7 @@ A diferencia de un chat convencional, **Groove Hub** garantiza respuestas estruc
 
 * **🧠 Memoria Conversacional:** El asistente (**Groov**) mantiene el contexto de la charla para una experiencia fluida y natural.
 * **🦎 Soporte Multi-Provider:** Detecta automáticamente tu configuración. Prioriza **OpenAI** (producción) pero permite usar **Groq** (desarrollo rápido y gratuito) sin cambiar el código.
-* **🛡️ Seguridad y Validación:** Incluye un módulo de seguridad (`SecurityFilter`) y validación estricta de tipos con `Pydantic` para evitar alucinaciones.
+* **🛡️ Seguridad Avanzada (LLM Hardening):** Implementa defensa en profundidad contra *Prompt Injection*. Utiliza **Input Isolation** (XML tags), estrategia **Sandwich Defense** (recordatorios de sistema efímeros) y limpieza de Markdown para garantizar la inmutabilidad de las instrucciones del sistema.
 * **📊 Observabilidad:** Registra logs detallados de cada interacción (Tokens, Latencia, Costo estimado) en `metrics/metrics.json`.
 * **🧪 Testeado:** Cuenta con una suite de pruebas automatizadas con `pytest`.
 
