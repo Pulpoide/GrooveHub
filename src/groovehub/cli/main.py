@@ -13,7 +13,12 @@ init(autoreset=True)
 
 def print_metrics(metrics: dict):
     """
-    Una función auxiliar para imprimir las métricas bonitas y separadas.
+    Función auxiliar para imprimir las métricas de rendimiento y costo 
+    de manera formateada y visualmente clara en la consola.
+    
+    Args:
+        metrics (dict): Diccionario que contiene las métricas a mostrar 
+                        (latencia, costo, tokens).
     """
     print(Fore.CYAN + Style.BRIGHT + "\n--- 📊 Métricas de la Consulta ---")
     print(f"⏱️  Latencia: {metrics['latency_ms']} ms")
@@ -25,18 +30,34 @@ def print_metrics(metrics: dict):
 
 
 def main():
+    """
+    Punto de entrada principal de la aplicación Groove Hub CLI.
+    
+    Inicia la interfaz de línea de comandos interactiva. En un bucle infinito, 
+    gestiona el flujo completo de la interacción del usuario:
+    1. Captura la entrada del usuario.
+    2. Aplica filtros de seguridad preventivos.
+    3. Inicia la medición de métricas (latencia).
+    4. Envía la consulta al MusicAgent para su procesamiento.
+    5. Calcula los costos y tokens utilizados.
+    6. Muestra la respuesta estructurada y las métricas en la consola.
+    7. Registra la interacción y las métricas en el historial.
+    
+    Maneja excepciones específicas como interrupciones del teclado y 
+    errores de validación de esquemas (alucinaciones del LLM).
+    """
     print("\033[H\033[J", end="")
 
     print(
         Fore.MAGENTA
         + Style.BRIGHT
         + r"""
-   _____                           _   _       _     
-  / ____|                         | | | |     | |    
- | |  __ _ __ ___   _____   _____ | |_| |_   _| |__  
- | | |_ | '__/ _ \ / _ \ \ / / _ \|  _  | | | | '_ \ 
- | |__| | | | (_) | (_) \ V /  __/| | | | |_| | |_) |
-  \_____|_|  \___/ \___/ \_/ \___||_| |_|\__,_|_.__/ 
+   _____                            _   _       _    
+  / ____|                          | | | |     | |   
+ | |  __ _ __ ___   _____   _____  | |_| |_   _| |__ 
+ | | |_ | '__/ _ \ / _ \ \ / / _ \ |  _  | | | | '_ \
+ | |__| | | | (_) | (_) \ V /  __/ | | | | |_| | |_) |
+  \_____|_|  \___/ \___/ \_/ \___| |_| |_|\__,_|_.__/
     """
         + Style.RESET_ALL
     )
@@ -141,7 +162,7 @@ def main():
             print(Fore.RED + "\n⚠️  Alerta de Alucinación:")
             print(Fore.YELLOW + "El modelo intentó usar una categoría no permitida.")
             print(Fore.WHITE + "Por favor, intenta reformular tu pregunta.\n")
-            print(Fore.RED + "\n" + e)
+            print(Fore.RED + "\n" + str(e))
 
         except Exception as e:
             print(Fore.RED + f"💥 Error inesperado: {e}")
