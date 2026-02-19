@@ -25,17 +25,6 @@ def print_metrics(metrics: dict):
 
 
 def main():
-    # print(Fore.GREEN + Style.BRIGHT + "🥁🎷🎸 Bienvenido a Groove Hub CLI 🥁🎷🎸")
-    # # print(Fore.CYAN + "🎼🎵🎶🎙️🎚️🎛️🎤🎧🎷🪗🎸🎹🎺🎻🪕🥁🪘🪇🪈🪉")
-    # print(Fore.CYAN + Style.BRIGHT + "🎵 Tienda de Instrumentos Musicales 🎵")
-    # print(Fore.CYAN + "-" * 50)
-    # print(
-    #     Fore.BLUE
-    #     + "\n🤖 Groov: "
-    #     + Fore.WHITE
-    #     + "¡Hola, soy Groov 👋! Charlemos y sacate tus dudas."
-    # )
-
     print("\033[H\033[J", end="")
 
     print(
