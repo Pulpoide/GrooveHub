@@ -1,28 +1,33 @@
 from pydantic import BaseModel, Field
 from enum import Enum
-from typing import List, Optional
 
 
 # 1. Definimos las acciones permitidas
 class AdvisorAction(str, Enum):
-    CHECK_STOCK = "check_stock"  # Verificar disponibilidad
-    OFFER_DISCOUNT = "offer_discount"  # Si el cliente duda por precio
+    """Acciones permitidas que el sistema puede ejecutar post-respuesta."""
+    CHECK_STOCK = "check_stock"          # Verificar disponibilidad
+    OFFER_DISCOUNT = "offer_discount"    # Si el cliente duda por precio
     ESCALATE_TO_HUMAN = "escalate_to_human"  # Si la pregunta es muy difícil o hay enojo
-    SHOW_CATALOG = "show_catalog"  # Mostrar productos relacionados
-    NONE = "none"  # Solo charla, sin acción comercial
+    SHOW_CATALOG = "show_catalog"        # Mostrar productos relacionados
+    NONE = "none"                        # Solo charla, sin acción comercial
 
 
 class UserIntent(str, Enum):
-    SALES_ADVISORY = "sales_advisory"  # Quiere comprar o pide recomendación
+    """Clasificación estricta de la intención del usuario para enrutar la lógica."""
+    SALES_ADVISORY = "sales_advisory"    # Quiere comprar o pide recomendación
     TECHNICAL_SUPPORT = "technical_support"  # Tiene problemas con algo que ya compró
-    SHIPPING_INFO = "shipping_info"  # Pregunta por envíos
-    OFF_TOPIC = (
-        "off_topic"  # Pregunta fuera de dominio (ej: "¿Cuál es tu película favorita?")
-    )
+    SHIPPING_INFO = "shipping_info"      # Pregunta por envíos
+    OFF_TOPIC = "off_topic"              # Pregunta fuera de dominio
+    ERROR = "error"                      # Fallback interno en caso de fallo del LLM
 
 
 # 2. Definimos la estructura de la respuesta
 class AdvisorResponse(BaseModel):
+    """
+    Modelo de datos principal que estructura la salida del LLM.
+    Asegura que la respuesta siempre tenga el formato correcto para ser 
+    procesada por la aplicación de consola.
+    """
     answer: str = Field(
         description="La respuesta amable y técnica del asistente al cliente."
     )
@@ -32,9 +37,10 @@ class AdvisorResponse(BaseModel):
     intent: UserIntent = Field(
         description="La clasificación de la intención del usuario."
     )
-    recommended_actions: List[AdvisorAction] = Field(
+    recommended_actions: list[AdvisorAction] = Field(
         description="Lista de acciones que el sistema debería ejecutar post-respuesta."
     )
-    reasoning: Optional[str] = Field(
+    reasoning: str | None = Field(
+        default=None,
         description="Breve explicación de por qué elegiste esas acciones y esa respuesta. (Chain of Thought)"
     )
