@@ -5,14 +5,39 @@ from groovehub.agent.prompts.main_prompt import SYSTEM_PROMPT
 
 
 class MusicAgent:
+    """
+    Agente conversacional principal que orquesta la lógica de Groove Hub.
+    
+    Se encarga de mantener el contexto de la conversación (memoria), aplicar 
+    estrategias de seguridad (Input Isolation y Sandwich Defense), comunicarse 
+    con el servicio LLM y estructurar las respuestas usando modelos Pydantic.
+    """
+
     def __init__(self):
+        """
+        Inicializa el agente instanciando el servicio LLM y configurando 
+        el historial de conversación inicial con el System Prompt principal.
+        """
         self.llm = LLMService()
 
         self.history = [{"role": "system", "content": SYSTEM_PROMPT}]
 
     def ask(self, user_query: str) -> AdvisorResponse:
         """
-        Procesa la pregunta, mantiene el historial y devuelve la respuesta tipada.
+        Procesa la entrada del usuario, aplica capas de seguridad, consulta al LLM 
+        y devuelve una respuesta estructurada y tipada.
+        
+        Implementa 'Input Isolation' envolviendo el texto en etiquetas XML y 
+        'Sandwich Defense' añadiendo un recordatorio efímero del sistema al final 
+        del historial antes de enviarlo al modelo, mitigando ataques de Prompt Injection.
+        
+        Args:
+            user_query (str): El mensaje crudo enviado por el usuario.
+            
+        Returns:
+            AdvisorResponse: Un modelo Pydantic que contiene la respuesta del asistente, 
+                             el razonamiento interno, la intención y las acciones recomendadas.
+                             Si falla el parseo JSON, devuelve un objeto de error seguro.
         """
         # 1. Preparar input del usuario con tags
         safe_user_content = f"<user_input>{user_query}</user_input>"
@@ -51,5 +76,8 @@ class MusicAgent:
             )
 
     def clear_memory(self):
-        """Reinicia la conversación sin matar el programa."""
+        """
+        Reinicia el historial de la conversación a su estado original, 
+        conservando únicamente el System Prompt base.
+        """
         self.history = [{"role": "system", "content": SYSTEM_PROMPT}]
