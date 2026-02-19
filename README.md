@@ -13,6 +13,17 @@ A diferencia de un chat convencional, **Groove Hub** garantiza respuestas estruc
 * **📊 Observabilidad:** Registra logs detallados de cada interacción (Tokens, Latencia, Costo estimado) en `metrics/metrics.json`.
 * **🧪 Testeado:** Cuenta con una suite de pruebas automatizadas con `pytest`.
 
+## 🧠 Estrategia de Prompt Engineering
+
+Para garantizar la fiabilidad y consistencia del asistente, **Groove Hub** utiliza una estrategia de **Few-Shot Prompting** combinada con *Role-Playing* y *Context Framing*.
+
+* **¿Qué técnica se usó?** 
+Dentro del *System Prompt*, además de definir el rol ("Groov", experto en instrumentos) y las reglas de seguridad, se incluyen ejemplos concretos de interacciones (pares de "Usuario" y "Asistente"). Esto es lo que se conoce como *Few-Shot Prompting* (proveer "unos pocos ejemplos" de la tarea a resolver).
+* **¿Por qué se eligió esta técnica?** 
+    1.  **Garantía de Estructura (JSON):** Al delegar el control a un LLM, el mayor riesgo para el backend es que la respuesta no pueda ser parseada. Los ejemplos *Few-Shot* le demuestran visualmente al modelo el formato JSON exacto que debe devolver, eliminando las alucinaciones de formato.
+    2.  **Precisión en la Clasificación:** Permite enseñarle al modelo cómo aplicar las reglas estrictas de los campos `intent` y `recommended_actions` ante escenarios reales (ej. una consulta de ventas vs. una consulta *off-topic*).
+    3.  **Calibración del Tono:** Ayuda a que el modelo entienda el nivel de empatía, el lenguaje técnico-musical y el formato de su razonamiento interno (`reasoning`) sin necesidad de describirlo con explicaciones largas y complejas.
+
 ## 📂 Estructura del Proyecto
 ```text
 groovehub/
